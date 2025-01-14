@@ -46,7 +46,3 @@ Este projeto está licenciado sob a MIT License.
 Se você tiver dúvidas ou sugestões, sinta-se à vontade para abrir uma issue ou entrar em contato diretamente.
 
 Whatsapp: (61) 99325-4624 - Philippe.
-
----
-
-Se precisar de ajuda com alguma parte específica da implementação ou configuração, sinta-se à vontade para perguntar!
