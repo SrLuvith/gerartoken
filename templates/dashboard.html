@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Geração de Tokens</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <!-- Container principal da dashboard -->
+    <div class="container">
+
+        <!-- Menu -->
+        <nav class="simple-menu">
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Visão Geral</a></li>
+                <li><a href="#">Tokens Criados</a></li>
+                <li><a href="#">Configurações</a></li>
+            </ul>
+            <div class="menu-actions">
+                <!-- Switch para alternância de modos -->
+                <label class="switch">
+                    <input type="checkbox" id="modeToggle">
+                    <span class="slider"></span>
+                </label>
+                <!-- Corrigindo o link para redirecionar corretamente -->
+                <button class="btn-logout" onclick="window.location.href='/login';">Sair</button>
+            </div>
+        </nav>
+
+        <!-- Cabeçalho da Dashboard -->
+        <header>
+            <h1>Dashboard - Geração de Tokens</h1>
+            <p>Gerencie e crie tokens para usuários.</p>
+        </header>
+
+        <!-- Seção para Visão Geral -->
+        <section class="overview-section">
+            <h2>Visão Geral</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3>Total de Tokens</h3>
+                    <p>{{ tokens | length }}</p>
+                </div>
+                <div class="card">
+                    <h3>Tokens Expirados</h3>
+                    <!-- Contagem de tokens expirados -->
+                    <p>{{ expired_tokens | length }}</p>
+                </div>
+                <div class="card">
+                    <h3>Tokens Ativos</h3>
+                    <!-- Contagem de tokens ativos -->
+                    <p>{{ active_tokens | length }}</p>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Tokens Criados -->
+        <section class="tokens-created">
+            <h2>Tokens Criados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Usuário</th>
+                        <th>Data de Criação</th>
+                        <th>Data de Expiração</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for token_id, token in tokens.items() %}
+    <p>{{ token.login }} - {{ token.email }} - {{ token.data_expiracao }} - 
+    {% if token_id in expired_tokens %}
+        Expirado
+    {% else %}
+        Ativo
+    {% endif %}
+    </p>
+{% endfor %}
+
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Link para recuperação de senha -->
+        <div class="forgot-password-container">
+            <a href="javascript:void(0);" onclick="showRecoveryForm()">Esqueceu sua senha?</a>
+        </div>
+
+        <!-- Formulário de recuperação de senha (oculto inicialmente) -->
+        <div class="recovery-form-container" id="recoveryForm" style="display: none;">
+            <h3>Recuperar Senha</h3>
+            <form action="/enviar-email-recuperacao" method="POST">
+                <div class="form-group">
+                    <label for="email">Digite seu e-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit" class="btn-primary">Enviar Solicitação</button>
+                <button type="button" class="btn-danger" onclick="hideRecoveryForm()">Cancelar</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- Script para alternar entre modos e para exibir/ocultar o formulário de recuperação -->
+    <script>
+        const toggleSwitch = document.getElementById('modeToggle');
+        toggleSwitch.addEventListener('change', function () {
+            document.body.classList.toggle('light-mode', this.checked);
+        });
+
+        function showRecoveryForm() {
+            document.getElementById('recoveryForm').style.display = 'block';
+        }
+
+        function hideRecoveryForm() {
+            document.getElementById('recoveryForm').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>

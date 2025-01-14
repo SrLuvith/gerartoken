@@ -1,0 +1,348 @@
+/* Reset de estilos para garantir consistência */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Fontes e estilos principais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #121212; /* Cor do fundo para o modo escuro */
+    color: #fff;
+    line-height: 1.6;
+    padding: 20px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Estilo para o modo claro */
+body.light-mode {
+    background-color: #f5f5f5; /* Cor do fundo para o modo claro */
+    color: #333;
+}
+
+/* Container principal */
+.container {
+    max-width: 800px;
+    width: 100%;
+    background-color: #1e1e1e;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilo para o modo claro */
+body.light-mode .container {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu simples */
+.simple-menu {
+    margin-bottom: 20px;
+    background-color: #333;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between; /* Alinha os itens no menu */
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra no menu para o modo claro */
+}
+
+.simple-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+.simple-menu li {
+    margin-right: 20px;
+}
+
+.simple-menu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.1em;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.simple-menu a:hover {
+    background-color: #388E3C;
+}
+
+/* Modo claro para o menu */
+body.light-mode .simple-menu {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra no modo claro */
+}
+
+body.light-mode .simple-menu a {
+    color: #333;
+}
+
+body.light-mode .simple-menu a:hover {
+    background-color: #4CAF50;
+}
+
+/* Cabeçalho da Dashboard */
+header h1 {
+    text-align: center;
+    font-size: 2em;
+    color: #388E3C;
+    margin-bottom: 10px;
+}
+
+/* Títulos das seções */
+h2 {
+    color: #388E3C;
+    margin-bottom: 15px;
+}
+
+/* Formulário */
+.token-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Campo de entrada */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    color: #fff;
+    text-align: left;
+}
+
+.form-group input {
+    padding: 12px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+body.light-mode .form-group input {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Botões */
+.btn-primary {
+    background-color: #388E3C;
+    border: none;
+    padding: 12px 20px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+body.light-mode .btn-primary {
+    background-color: #388E3C;
+}
+
+.btn-primary:hover {
+    background-color: #2c6e31;
+}
+
+.btn-danger {
+    background-color: #f44336;
+    border: none;
+    padding: 10px 16px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f;
+}
+
+/* Tabela de tokens */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+table th {
+    background-color: #388E3C;
+    color: #fff;
+}
+
+table td button {
+    padding: 6px 12px;
+    background-color: #f44336;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+table td button:hover {
+    background-color: #d32f2f;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    .form-group input {
+        padding: 10px;
+    }
+
+    .btn-primary {
+        padding: 10px 16px;
+    }
+
+    .simple-menu {
+        text-align: center;
+    }
+
+    .simple-menu li {
+        display: block;
+        margin-right: 0;
+    }
+}
+
+/* Estilo do switch para alternância de modos */
+.switch {
+    position: absolute; /* Posicionamento absoluto */
+    top: 20px;
+    right: 20px; /* Canto superior direito */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.switch input {
+    opacity: 0;
+    position: absolute;
+}
+
+.switch .slider {
+    width: 34px;
+    height: 20px;
+    background-color: #ccc;
+    border-radius: 34px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.switch .slider:before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+/* Modo claro */
+body.light-mode .switch .slider {
+    background-color: #4CAF50;
+}
+
+body.light-mode .switch .slider:before {
+    transform: translateX(14px);
+}
+
+/* Novo estilo para o botão de sair */
+.btn-logout {
+    background-color: #f44336; /* Cor de fundo vermelha */
+    border: none;
+    padding: 6px 12px; /* Menor tamanho */
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em; /* Fonte menor */
+    transition: background-color 0.3s ease;
+}
+
+.btn-logout:hover {
+    background-color: #d32f2f; /* Cor de fundo mais escura no hover */
+}
+
+/* Centraliza o botão de sair no menu */
+.simple-menu .btn-logout {
+    margin-left: auto; /* Empurra o botão para o lado direito */
+    margin-right: 0; /* Garante que não haja margem à direita */
+    padding: 6px 12px;
+}
+
+/* Estilo para os cards */
+.card-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card {
+    background-color: #2c2c2c; /* Cor de fundo do card */
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 30%;
+    text-align: center;
+}
+
+.card h3 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Efeito de hover nos cards */
+.card:hover {
+    background-color: #388E3C; /* Cor de fundo no hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Modo claro para os cards */
+body.light-mode .card {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+body.light-mode .card:hover {
+    background-color: #4CAF50;
+}

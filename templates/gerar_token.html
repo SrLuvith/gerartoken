@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Compra de Tokens</title>
+    <link rel="stylesheet" href="/static/styles.css">  <!-- Link para o CSS -->
+</head>
+<body>
+
+    <!-- Container da página -->
+    <div class="container">
+
+        <!-- Switch para alternância entre modos -->
+        <div class="mode-switch">
+            <label class="switch">
+                <input type="checkbox" id="modeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <!-- Seção principal de Compra de Tokens -->
+        <div class="purchase-section">
+            <h1>Compra de Tokens</h1>
+            <p>Preencha as informações abaixo para comprar um token de acesso.</p>
+
+            <!-- Formulário de Compra de Tokens -->
+            <form id="purchaseForm" action="/gerar_token" method="POST" class="token-form">
+                
+                <!-- Campo para Nome -->
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" class="form-control" required placeholder="Digite seu nome">
+                </div>
+
+                <!-- Campo para Email -->
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required placeholder="Digite seu email">
+                </div>
+
+                <!-- Campo para CPF -->
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" name="cpf" class="form-control" required placeholder="Digite seu CPF">
+                </div>
+
+                <!-- Campo para quantidade de dias -->
+                <div class="form-group">
+                    <label for="days">Número de dias:</label>
+                    <input type="number" id="days" name="dias" class="form-control" required min="1" placeholder="Digite o número de dias">
+                </div>
+
+                <!-- Botão de Compra -->
+                <button type="submit" class="btn-primary">Comprar</button>
+                
+                <!-- Exibição do valor total -->
+                <div id="totalValue">
+                    <p><strong>Preço Total:</strong> R$ <span id="totalPrice">0,00</span></p>
+                </div>
+            </form>
+        </div>
+
+        <!-- Rodapé -->
+        <footer>
+            <p>&copy; 2025 Sua Empresa - Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <!-- Script para cálculo do valor total -->
+    <script>
+        const daysInput = document.getElementById('days');
+        const totalPriceElement = document.getElementById('totalPrice');
+
+        daysInput.addEventListener('input', function () {
+            const pricePerDay = 1.35;  // Preço por dia
+            const totalPrice = (parseInt(daysInput.value) * pricePerDay).toFixed(2);
+            totalPriceElement.textContent = totalPrice;
+        });
+
+        const toggleSwitch = document.getElementById('modeToggle');
+        toggleSwitch.addEventListener('change', function () {
+            document.body.classList.toggle('light-mode', this.checked);
+        });
+    </script>
+
+</body>
+</html>

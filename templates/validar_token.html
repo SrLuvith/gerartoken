@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar Token</title>
+    <link rel="stylesheet" href="/static/style2.css">
+    <script>
+        const custoPorDia = 0.01; // Custo de 1 dia em reais
+
+        function calcularCusto() {
+            const diasInput = document.getElementById("dias");
+            const custoElement = document.getElementById("total-cost");
+            const erroElement = document.getElementById("error-message");
+
+            const dias = parseFloat(diasInput.value) || 0;
+
+            // Limpar erro
+            erroElement.textContent = "";
+
+            let custoTotal = 0;
+
+            // Cálculo para dias
+            custoTotal = dias * custoPorDia;
+
+            custoElement.textContent = `Custo total: R$ ${custoTotal.toFixed(2).replace('.', ',')}`;
+        }
+
+        function showLoadingAndGenerate(event) {
+            event.preventDefault();
+
+            const loadingSpinner = document.getElementById("loading-spinner");
+            const successMessage = document.getElementById("success-message");
+            const form = document.getElementById("token-form");
+
+            // Validação do CPF
+            const cpfInput = document.getElementById("cpf");
+            const cpf = cpfInput.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+            const erroElement = document.getElementById("error-message");
+
+            if (cpf.length !== 11) {
+                erroElement.textContent = "O CPF deve ter 11 dígitos!";
+                return;
+            }
+
+            // Mostrar o spinner de carregamento e esconder a mensagem de sucesso
+            loadingSpinner.style.display = "block";
+            successMessage.style.display = "none";
+
+            setTimeout(() => {
+                // Simula o processo de criação do token (2 segundos)
+                loadingSpinner.style.display = "none"; // Esconder o spinner
+                successMessage.style.display = "block"; // Exibir a mensagem de sucesso
+
+                // Submeter o formulário após a simulação
+                form.submit();
+            }, 5); // Tempo de simulação do processo
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.getElementById("unidade-dropdown");
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+
+        function selectUnidade(unidade) {
+            const unidadeDisplay = document.getElementById("unidade-display");
+            unidadeDisplay.value = unidade.charAt(0).toUpperCase() + unidade.slice(1); // Capitaliza a primeira letra
+            document.getElementById("unidade").value = unidade;
+            toggleDropdown();
+            mostrarCampos();
+            calcularCusto(); // Chama para atualizar o custo imediatamente após a seleção
+        }
+
+        function mostrarCampos() {
+            const unidadeSelecionada = document.getElementById("unidade").value;
+            const campoDias = document.getElementById("campo-dias");
+
+            if (unidadeSelecionada === "dias") {
+                campoDias.style.display = "block";
+            }
+        }
+
+        // Fechar o dropdown se clicar fora
+        window.addEventListener("click", function(event) {
+            if (!event.target.closest('.input-group')) {
+                document.getElementById("unidade-dropdown").style.display = "none";
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Gerar Token</h1>
+        </header>
+        <form id="token-form" method="POST" action="/" onsubmit="showLoadingAndGenerate(event)">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required placeholder="Seu e-mail">
+
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" required placeholder="Seu CPF" maxlength="14" oninput="this.value = this.value.replace(/[^\d]/g, '').replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')">
+
+            <input type="hidden" id="unidade" name="unidade" value="dias">
+
+            <div class="campo-unidade" id="campo-dias">
+                <label for="dias">Validade (Dias)</label>
+                <input type="number" id="dias" name="dias" min="1" value="1" oninput="calcularCusto()" class="no-scroll">
+            </div>
+
+            <div class="total-cost" id="total-cost">Custo total: R$ 0,00</div>
+            <div id="error-message" class="error-message"></div>
+
+            <button type="submit">Gerar Token</button>
+        </form>
+        <div id="loading-spinner" class="loading-spinner" style="display: none;"></div>
+        <div id="success-message" class="success-message" style="display: none;">Token gerado com sucesso!</div>
+    </div>
+
+    <script>
+        // Inicializa com os campos corretos visíveis e chama o cálculo inicial
+        mostrarCampos();
+        calcularCusto();
+    </script>
+</body>
+</html>
