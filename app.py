@@ -202,5 +202,6 @@ def init_db():
 init_db()
 
 # Executar a aplicação
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.getenv("PORT", 5000))  # Porta dinâmica da Render ou 5000 por padrão
+    app.run(host="0.0.0.0", port=port, debug=True)  # 0.0.0.0 permite acesso externo
