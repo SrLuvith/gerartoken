@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="mode-switch">
+            <label class="switch">
+                <input type="checkbox" id="modeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <div class="login-section">
+            <h1>Bem-vindo!</h1>
+            <p>Faça login para acessar sua conta.</p>
+
+            <!-- Formulário de login -->
+            <form action="/login" method="POST" class="login-form">
+                
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="text" id="email" name="email" class="form-control" required placeholder="Digite seu e-mail">
+                </div>
+                
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" id="senha" name="senha" class="form-control" required placeholder="Digite sua senha">
+                </div>
+                
+                <button type="submit" class="btn-primary">Entrar</button>
+                
+                <p><a href="/recover-password">Esqueceu a senha?</a></p>
+            </form>
+
+            <!-- Mensagens de erro ou sucesso -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul>
+                        {% for category, message in messages %}
+                            <li style="color: red;">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Sua Empresa - Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <script>
+        const toggleSwitch = document.getElementById('modeToggle');
+        toggleSwitch.addEventListener('change', function () {
+            document.body.classList.toggle('light-mode', this.checked);
+        });
+    </script>
+
+</body>
+</html>

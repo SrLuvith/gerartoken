@@ -53,7 +53,6 @@
                     <h3>Tokens Ativos</h3>
                     <!-- Contagem de tokens ativos -->
                     <p>{{ active_tokens | length }}</p>
-
                 </div>
             </div>
         </section>
@@ -71,16 +70,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for token_id, token in tokens.items() %}
-    <p>{{ token.login }} - {{ token.email }} - {{ token.data_expiracao }} - 
-    {% if token_id in expired_tokens %}
-        Expirado
-    {% else %}
-        Ativo
-    {% endif %}
-    </p>
-{% endfor %}
-
+                    {% for token in tokens %}
+                        <tr>
+                            <td>{{ token['login'] }} - {{ token['email'] }}</td>
+                            <td>{{ token['data_criacao'] }}</td>
+                            <td>{{ token['data_expiracao'] }}</td>
+                            <td>
+                                {% if token['id'] in expired_tokens %}
+                                    Expirado
+                                {% else %}
+                                    Ativo
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </section>

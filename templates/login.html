@@ -1,70 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Página de Login</title>
-    <link rel="stylesheet" href="/static/styles.css">  <!-- Link para o CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+    <style>
+        body {
+            color: #fff;
+            background: #121212;
+        }
+        .form-control {
+            min-height: 41px;
+            background: #fff;
+            box-shadow: none !important;
+            border-color: #e3e3e3;
+        }
+        .form-control:focus {
+            border-color: #70c5c0;
+        }
+        .form-control, .btn {        
+            border-radius: 2px;
+        }
+        .login-form {
+            width: 350px;
+            margin: 0 auto;
+            padding: 100px 0 30px;		
+        }
+        .login-form form {
+            color: #7a7a7a;
+            border-radius: 2px;
+            margin-bottom: 15px;
+            font-size: 13px;
+            background: #252525;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;	
+            position: relative;	
+        }
+        .login-form h2 {
+            font-size: 22px;
+            margin: 35px 0 25px;
+        }
+        .login-form .avatar {
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: -50px;
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            z-index: 9;
+            background: #388E3C;
+            padding: 15px;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        }
+        .login-form .avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }	
+        .login-form input[type="checkbox"] {
+            margin-top: 2px;
+        }
+        .login-form .btn {        
+            font-size: 16px;
+            font-weight: bold;
+            background: #388E3C;
+            border: none;
+            margin-bottom: 20px;
+        }
+        .login-form .btn:hover, .login-form .btn:focus {
+            background: #82ce34;
+            outline: none !important;
+        }    
+        .login-form a {
+            color: #fff;
+            text-decoration: underline;
+        }
+        .login-form a:hover {
+            text-decoration: none;
+        }
+        .login-form form a {
+            color: #7a7a7a ;
+            text-decoration: none;
+        }
+        .login-form form a:hover {
+            text-decoration: underline;
+        }
+        /* Estilo para a mensagem de erro */
+        .alert-error {
+            color: #fff;
+            background-color: #d9534f;
+            border-color: #d43f00;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 2px;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-
-    <!-- Container da página -->
-    <div class="container">
-
-        <!-- Switch para alternância entre modos -->
-        <div class="mode-switch">
-            <label class="switch">
-                <input type="checkbox" id="modeToggle">
-                <span class="slider"></span>
-            </label>
+<div class="login-form">
+    <form action="/login" method="POST">
+        <div class="avatar">
+            <a href="https://www.suacadela.com" target="_blank">
+                <img src="{{ url_for('static', filename='avatar.png') }}" alt="Avatar">
+            </a>
+        </div>
+        <h2 class="text-center">Área de Login</h2> 
+        <p>Suas credenciais de acesso.</p>
+        
+        <!-- Login -->
+        <div class="form-group">
+            <input type="text" class="form-control" name="login" placeholder="Login" required="required">
         </div>
 
-        <!-- Seção principal de Login -->
-        <div class="login-section">
-            <h1>Bem-vindo!</h1>
-            <p>Faça login para acessar sua conta.</p>
-
-            <!-- Formulário de login -->
-            <form action="/login" method="POST" class="login-form">
-                
-                <!-- Campo de Login -->
-                <div class="form-group">
-                    <label for="login">Usuário:</label>
-                    <input type="text" id="login" name="login" class="form-control" required placeholder="Digite seu usuário">
-                </div>
-                
-                <!-- Campo de Senha -->
-                <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input type="password" id="senha" name="senha" class="form-control" required placeholder="Digite sua senha">
-                </div>
-                
-                <!-- Botão de Login -->
-                <button type="submit" class="btn-primary">Entrar</button>
-                
-                <!-- Link para recuperação de senha -->
-                <p><a href="/recover-password">Esqueceu a senha?</a></p>
-            </form>
-
-            <!-- Mensagem de erro, se houver -->
-            {% if error %}
-            <p style="color: red;">{{ error }}</p>
-            {% endif %}
+        <!-- Senha -->
+        <div class="form-group">
+            <input type="password" class="form-control" name="senha" placeholder="Senha" required="required">
+        </div>        
+        
+        <!-- Botão de login -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
         </div>
 
-        <!-- Rodapé -->
-        <footer>
-            <p>&copy; 2025 Sua Empresa - Todos os direitos reservados</p>
-        </footer>
-    </div>
+        <!-- Checkbox de lembrete e link para recuperar senha -->
+        <div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"> Lembre de mim</label>
+            <a href="/recover-password" class="pull-right">Esqueceu sua senha?</a>
+        </div>
+    </form>
 
-    <!-- Script para alternar entre modos -->
-    <script>
-        const toggleSwitch = document.getElementById('modeToggle');
-        toggleSwitch.addEventListener('change', function () {
-            document.body.classList.toggle('light-mode', this.checked);
-        });
-    </script>
-
+    <!-- Mensagens de erro ou sucesso -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="alert-error">
+                {% for category, message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</div>
 </body>
 </html>
